@@ -1,0 +1,24 @@
+services:
+  thorvet-api:
+    build:
+      context: ../ThorvetAPI
+    ports:
+      - "8083:8083"
+    volumes:
+      - thorvet-api-data:/app/data
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-kHsfLMNQRuuHc9wRu53S3IQN+dbxEbedyN49XGebWsA=}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-2}
+
+  thorvet-mvc:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      API_THORVET_BASE_URL: http://thorvet-api:8083
+    depends_on:
+      - thorvet-api
+
+volumes:
+  thorvet-api-data:

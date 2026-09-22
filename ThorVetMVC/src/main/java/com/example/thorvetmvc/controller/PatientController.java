@@ -19,7 +19,9 @@ import java.util.List;
 @RequestMapping("/mascotas")
 @RequiredArgsConstructor
 @Slf4j
-public class PatientController {
+public class
+
+PatientController {
 
     private final PatientService patientService;
 
