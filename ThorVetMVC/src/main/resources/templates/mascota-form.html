@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registrar mascota · Thorvet</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f6f4f0; margin: 0; padding: 32px 24px; color: #2b2b2b; }
+        .contenedor { max-width: 480px; margin: 0 auto 40px; }
+        .cabecera { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+        h1 { margin: 0; }
+        .btn { display: inline-block; padding: 10px 16px; border-radius: 6px; background: #eee6d8; color: #2b2b2b;
+               font-size: 14px; text-decoration: none; }
+        .btn:hover { background-color: #e0d6c2; }
+        .alerta { padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        .alerta-exito { background: #e3f5e8; color: #24623c; border: 1px solid #b6e3c3; }
+        .alerta-error { background: #fbe4e2; color: #8a2f27; border: 1px solid #f0b8b3; }
+        form { display: flex; flex-direction: column; gap: 14px; }
+        label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 13px; }
+        input { width: 100%; padding: 10px 12px; border: 1px solid #cfcac0; border-radius: 6px; font-size: 14px; }
+        .campo-error { color: #8a2f27; font-size: 12px; margin-top: 4px; }
+        button { padding: 12px 16px; border: none; border-radius: 6px; background: #2f7d4f; color: #fff; font-size: 15px; cursor: pointer; }
+        button:hover { background-color: #24623c; }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <div class="cabecera">
+        <h1>Registrar nueva mascota</h1>
+        <!-- Botón hacia el listado, que ahora vive en su propia URL. -->
+        <a class="btn" th:href="@{/mascotas}">Ver mascotas</a>
+    </div>
+
+    <!-- mensajeError llega como flash attribute cuando el POST falla y nos
+         redirige de vuelta a este mismo formulario (ver PatientController). -->
+    <div class="alerta alerta-exito" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+    <div class="alerta alerta-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+
+    <form th:action="@{/mascotas/create}" th:object="${patient}" method="post">
+        <div>
+            <label for="chipNumber">Número de chip</label>
+            <input type="text" id="chipNumber" th:field="*{chipNumber}">
+            <div class="campo-error" th:if="${#fields.hasErrors('chipNumber')}" th:errors="*{chipNumber}"></div>
+        </div>
+
+        <div>
+            <label for="name">Nombre</label>
+            <input type="text" id="name" th:field="*{name}">
+            <div class="campo-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div>
+            <label for="species">Especie</label>
+            <input type="text" id="species" th:field="*{species}">
+            <div class="campo-error" th:if="${#fields.hasErrors('species')}" th:errors="*{species}"></div>
+        </div>
+
+        <div>
+            <label for="breed">Raza</label>
+            <input type="text" id="breed" th:field="*{breed}">
+            <div class="campo-error" th:if="${#fields.hasErrors('breed')}" th:errors="*{breed}"></div>
+        </div>
+
+        <div>
+            <label for="dateOfBirth">Fecha de nacimiento</label>
+            <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}">
+            <div class="campo-error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
+        </div>
+
+        <div>
+            <label for="weightKg">Peso (kg)</label>
+            <input type="number" id="weightKg" step="0.01" min="0" th:field="*{weightKg}">
+            <div class="campo-error" th:if="${#fields.hasErrors('weightKg')}" th:errors="*{weightKg}"></div>
+        </div>
+
+        <div>
+            <label for="ownerId">ID del propietario</label>
+            <input type="number" id="ownerId" min="1" th:field="*{ownerId}">
+            <div class="campo-error" th:if="${#fields.hasErrors('ownerId')}" th:errors="*{ownerId}"></div>
+        </div>
+
+        <button type="submit">Registrar mascota</button>
+    </form>
+</div>
+</body>
+</html>

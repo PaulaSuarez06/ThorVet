@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mascotas · Thorvet</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f6f4f0; margin: 0; padding: 32px 24px; color: #2b2b2b; }
+        .contenedor { max-width: 720px; margin: 0 auto 40px; }
+        .cabecera { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+        h1 { margin: 0; }
+        .btn { display: inline-block; padding: 10px 16px; border-radius: 6px; background: #2f7d4f; color: #fff;
+               font-size: 14px; text-decoration: none; }
+        .btn:hover { background-color: #24623c; }
+        .alerta { padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        .alerta-exito { background: #e3f5e8; color: #24623c; border: 1px solid #b6e3c3; }
+        .alerta-error { background: #fbe4e2; color: #8a2f27; border: 1px solid #f0b8b3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e0dcd2; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <div class="cabecera">
+        <h1>Mascotas registradas</h1>
+        <!-- Botón hacia la vista de alta, que ahora vive en su propia URL. -->
+        <a class="btn" th:href="@{/mascotas/nueva}">Registrar mascota</a>
+    </div>
+
+    <!-- mensajeExito llega como flash attribute desde el POST de alta, que
+         redirige acá una vez creada la mascota. -->
+    <div class="alerta alerta-exito" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+    <div class="alerta alerta-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+
+    <table th:if="${patients != null and !patients.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Chip</th>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Propietario</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${patients}">
+            <td th:text="${p.CHIP_NUMBER}"></td>
+            <td th:text="${p.NAME}"></td>
+            <td th:text="${p.SPECIES}"></td>
+            <td th:text="${p.BREED}"></td>
+            <td th:text="${p.OWNER_FULL_NAME}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${patients == null or patients.isEmpty()}">No hay mascotas registradas todavía.</p>
+</div>
+</body>
+</html>
