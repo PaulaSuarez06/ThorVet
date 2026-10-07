@@ -131,9 +131,5 @@ Tablas principales:
 
 El esquema SQL también define las tablas `vet_specialties`, `appointments`, `invoices` e `invoice_lines`, que están previstas para futuras funcionalidades (especialidades, citas y facturación) y aún no tienen entidades ni endpoints en la API.
 
-## Docker
 
-El proyecto incluye un `Dockerfile` multietapa que compila la API con Maven y la ejecuta con un JRE ligero. El puerto se puede cambiar con la variable `PORT` (por defecto, 8083).
-
-## Autoría
 
