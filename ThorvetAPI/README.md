@@ -137,4 +137,3 @@ El proyecto incluye un `Dockerfile` multietapa que compila la API con Maven y la
 
 ## Autoría
 
-Proyecto desarrollado por PaulaSuarez06.
