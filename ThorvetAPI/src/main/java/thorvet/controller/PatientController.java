@@ -24,6 +24,15 @@ public class PatientController {
         return ResponseEntity.ok(patientService.findAll());
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<PatientResponseDTO> getPatientByName(@PathVariable String name){
+        Optional<PatientResponseDTO> result = patientService.findByName(name);
+        if(result.isPresent()){
+            return ResponseEntity.ok(result.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<PatientResponseDTO> createPatient(@RequestBody PatientRequestDTO patientRequestDTO){
 

@@ -51,6 +51,10 @@ public class PatientService {
     }
 
 
+    public Optional<PatientResponseDTO> findByName(String name) {
+        return patientRepository.findByName(name)
+                .map(patientMapper::toResponseDTO);
+    }
 }
 
 

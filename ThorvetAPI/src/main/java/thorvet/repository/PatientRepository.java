@@ -11,4 +11,5 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     Optional<Patient> findById(Long id);
     Optional<Patient> findByChipNumber(String chipNumber);
     Optional<Patient> findByName(String name);
+
 }
